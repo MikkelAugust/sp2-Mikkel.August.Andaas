@@ -1,0 +1,70 @@
+/* ============================
+   FORTIS TOASTS
+   ============================ */
+
+.fa-toast-container {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  pointer-events: none;
+}
+
+.fa-toast {
+  min-width: 220px;
+  max-width: 320px;
+
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  background: #ffffff;
+  color: var(--fa-text-main);
+
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+
+  font-family: var(--fa-font-body);
+  font-size: 0.9rem;
+  line-height: 1.4;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+
+  pointer-events: auto;
+}
+
+/* slide/fade in */
+.fa-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* LEFT COLOR STRIP */
+.fa-toast::before {
+  content: "";
+  display: block;
+  width: 4px;
+  align-self: stretch;
+  border-radius: 999px;
+  background: #888;
+}
+
+/* Types */
+.fa-toast--success::before {
+  background: #3c7a4a;
+}
+
+.fa-toast--error::before {
+  background: #b02222;
+}
+
+.fa-toast--info::before {
+  background: #4169e1;
+}

@@ -1,0 +1,109 @@
+/* AUTH PAGES (Register & Login) */
+
+.auth-main {
+  flex: 1;
+  background-color: var(--fa-bg-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+
+.auth-card {
+  background: #ffffff;
+  width: 360px;
+  max-width: 90vw;
+  padding: 3.5rem 3rem;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.auth-title {
+  font-family: var(--fa-font-heading);
+  font-size: 2rem;
+  text-align: center;
+  color: var(--fa-text-main);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.auth-field label {
+  font-family: var(--fa-font-heading);
+  font-size: 1rem;
+  text-transform: capitalize;
+}
+
+.auth-field input {
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: var(--fa-font-body);
+  transition: border-color 0.25s var(--fa-ease), box-shadow 0.25s var(--fa-ease);
+}
+
+.auth-field input:focus {
+  border-color: #888;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
+.auth-btn {
+  margin-top: 0.5rem;
+  background: var(--fa-text-main);
+  color: #fff;
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 999px;
+  font-family: var(--fa-font-heading);
+  letter-spacing: 0.05em;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: transform 0.25s var(--fa-ease), opacity 0.25s var(--fa-ease);
+}
+
+.auth-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.auth-switch {
+  text-align: center;
+  font-size: 0.95rem;
+}
+
+.auth-switch a {
+  font-family: var(--fa-font-heading);
+  text-decoration: underline;
+  transition: color 0.25s var(--fa-ease);
+}
+
+.auth-switch a:hover {
+  color: #444;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .auth-card {
+    width: 300px;
+    padding: 3rem 2rem;
+  }
+
+  .auth-title {
+    font-size: 1.7rem;
+  }
+}

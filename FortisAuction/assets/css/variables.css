@@ -1,0 +1,17 @@
+:root {
+  --fa-bg-main: #b3aca4;
+  --fa-header-bg: #ffffff;
+  --fa-footer-bg: #222222;
+  --fa-text-main: #333333;
+  --fa-text-muted: #f5f5f5;
+
+  --fa-font-heading: "Georgia", "Times New Roman", serif;
+  --fa-font-body: "Helvetica Neue", Arial, sans-serif;
+
+  --fa-pill-green-start: #79c96b;
+  --fa-pill-green-end: #3c7a4a;
+  --fa-pill-blue: #a8dff4;
+  --fa-pill-pink: #f7b6c2;
+
+  --fa-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}

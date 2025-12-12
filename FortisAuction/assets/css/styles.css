@@ -1,0 +1,142 @@
+@import url("./variables.css");
+@import url("./header&footer.css");
+
+/* RESET */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* PAGE LAYOUT */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--fa-font-body);
+}
+
+/* MAIN WELCOME AREA */
+
+.welcome-main {
+  flex: 1;
+  background-color: var(--fa-bg-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+
+.welcome-hero {
+  padding: 0;
+}
+
+.welcome-card {
+  background-color: #ffffff;
+  width: 320px;
+  max-width: 90vw;
+  padding: 4.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.welcome-link {
+  font-family: var(--fa-font-heading);
+  font-size: 1.5rem;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  color: #111111;
+  transition: color 0.25s var(--fa-ease), transform 0.25s var(--fa-ease);
+}
+
+.welcome-link:hover {
+  color: #555;
+  transform: translateY(-2px);
+}
+
+
+/* FOOTER */
+
+.welcome-footer {
+  background-color: var(--fa-footer-bg);
+  color: var(--fa-text-muted);
+  padding: 1.8rem 1rem 1.2rem;
+  font-size: 0.85rem;
+}
+
+.welcome-footer-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.welcome-footer-text {
+  margin-bottom: 1.2rem;
+  line-height: 1.6;
+}
+
+.welcome-footer-socials {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+  padding: 0.4rem 0.8rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+}
+
+/* SOCIAL ICONS */
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-icon {
+  width: 22px;
+  height: 22px;
+  opacity: 0.7;
+  transition: opacity 0.25s var(--fa-ease), transform 0.25s var(--fa-ease);
+}
+
+.social-link:hover .footer-icon {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.welcome-footer-copy {
+  font-size: 0.78rem;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .welcome-hero {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .welcome-card {
+    width: 230px;
+    padding: 3rem 2rem;
+  }
+
+  .welcome-footer-text {
+    font-size: 0.8rem;
+  }
+}
