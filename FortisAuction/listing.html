@@ -10,6 +10,12 @@
     />
     <title>Listing – Fortis Auction</title>
 
+    <link
+      rel="icon"
+      type="image/png"
+      href="/FortisAuction/assets/logos/hammer.png"
+    />
+
     <link rel="stylesheet" href="/FortisAuction/assets/css/styles.css" />
     <link rel="stylesheet" href="/FortisAuction/assets/css/listing.css" />
     <link rel="stylesheet" href="/FortisAuction/assets/css/toast.css" />
@@ -25,7 +31,6 @@
     <header id="header"></header>
 
     <main class="listing-main">
-      <!-- TOP CARD: IMAGE + SUMMARY + METADATA -->
       <section class="listing-shell">
         <article class="listing-top">
           <div class="listing-media">
@@ -41,10 +46,14 @@
             <h2 id="listingTitle"></h2>
             <p id="listingDescription" class="listing-description"></p>
 
+            <a id="editListingBtn" class="listing-edit-btn" href="#"
+              >Edit listing</a
+            >
+
             <div class="listing-detail-grid">
               <div class="detail-row">
                 <span class="detail-label">Seller</span>
-                <span id="listingSeller" class="detail-value"></span>
+                <a id="listingSeller" class="detail-value" href="#"></a>
               </div>
 
               <div class="detail-row">
@@ -65,16 +74,12 @@
           </div>
         </article>
 
-        <!-- BID HISTORY IN SAME CARD -->
         <section class="listing-bids">
           <h2 class="listing-section-title">Bid History</h2>
-          <ul id="bidHistory" class="bid-history-list">
-            <!-- JS fyller inn li-elementer -->
-          </ul>
+          <ul id="bidHistory" class="bid-history-list"></ul>
         </section>
       </section>
 
-      <!-- PLACE BID PANEL -->
       <section class="listing-bid-panel">
         <h2 class="listing-section-title">Place a Bid</h2>
 
@@ -99,53 +104,6 @@
       </section>
     </main>
 
-    <footer id="footer" class="welcome-footer">
-      <div class="welcome-footer-inner">
-        <p class="welcome-footer-text">
-          Our platform brings together high-quality sellers and motivated
-          buyers, creating a reliable marketplace where great finds move fast.
-        </p>
-
-        <div class="welcome-footer-socials">
-          <span>follow our socials:</span>
-
-          <a href="#" class="social-link" aria-label="Facebook">
-            <img
-              src="/FortisAuction/assets/logos/SVG FACEBOOK.svg"
-              alt="Facebook"
-              class="footer-icon"
-            />
-          </a>
-
-          <a href="#" class="social-link" aria-label="Instagram">
-            <img
-              src="/FortisAuction/assets/logos/SVG INSTAGRAM.svg"
-              alt="Instagram"
-              class="footer-icon"
-            />
-          </a>
-
-          <a href="#" class="social-link" aria-label="Twitter">
-            <img
-              src="/FortisAuction/assets/logos/SVG TWITTER.svg"
-              alt="Twitter"
-              class="footer-icon"
-            />
-          </a>
-
-          <a href="#" class="social-link" aria-label="GitHub">
-            <img
-              src="/FortisAuction/assets/logos/SVG GITHUB.svg"
-              alt="GitHub"
-              class="footer-icon"
-            />
-          </a>
-        </div>
-
-        <p class="welcome-footer-copy">
-          © 2025 AuctionSite. Secure bidding. Transparent listings.
-        </p>
-      </div>
-    </footer>
+    <footer id="footer"></footer>
   </body>
 </html>

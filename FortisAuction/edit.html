@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Mikkel August Andaas" />
+    <meta name="description" content="Edit your listing on Fortis Auction" />
+    <title>Edit Listing – Fortis Auction</title>
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="/FortisAuction/assets/logos/hammer.png"
+    />
+
+    <link rel="stylesheet" href="/FortisAuction/assets/css/styles.css" />
+    <link rel="stylesheet" href="/FortisAuction/assets/css/edit.css" />
+    <link rel="stylesheet" href="/FortisAuction/assets/css/toast.css" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="/FortisAuction/assets/logos/hammer.png"
+    />
+
+    <script type="module" src="/FortisAuction/js/main/edit.js" defer></script>
+  </head>
+
+  <body>
+    <header id="header"></header>
+
+    <main class="edit-main">
+      <section class="edit-shell">
+        <div class="edit-shell-header">
+          <h1>Edit Listing</h1>
+          <p>
+            Update the information for your listing below. Only you, as the
+            owner, can edit or delete this listing.
+          </p>
+        </div>
+
+        <div class="edit-shell-body">
+          <form id="editListingForm" class="edit-form">
+            <div class="edit-field">
+              <label for="title">Title</label>
+              <input
+                id="title"
+                name="title"
+                type="text"
+                placeholder="Listing title"
+                required
+              />
+            </div>
+
+            <div class="edit-field">
+              <label for="description">Description</label>
+              <textarea
+                id="description"
+                name="description"
+                rows="5"
+                placeholder="Describe your listing in more detail..."
+              ></textarea>
+            </div>
+
+            <div class="edit-field">
+              <label for="media">Image URL</label>
+              <input
+                id="media"
+                name="media"
+                type="url"
+                placeholder="https://example.com/image.jpg"
+                aria-describedby="mediaHint"
+              />
+              <small id="mediaHint">
+                Paste a direct link to a publicly accessible image.
+              </small>
+            </div>
+
+            <div class="edit-field">
+              <label for="tags">Tags</label>
+              <input
+                id="tags"
+                name="tags"
+                type="text"
+                placeholder="gaming, console, retro"
+                aria-describedby="tagsHint"
+              />
+              <small id="tagsHint">
+                Separate tags with commas. Used for search and filtering.
+              </small>
+            </div>
+
+            <div class="edit-actions">
+              <button type="submit" class="btn-primary">Save changes</button>
+
+              <button type="button" id="deleteListingBtn" class="btn-danger">
+                Delete listing
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer id="footer"></footer>
+  </body>
+</html>

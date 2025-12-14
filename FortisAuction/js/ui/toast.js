@@ -19,12 +19,16 @@ export function showToast(message, type = "info") {
     toast.classList.add("is-visible");
   });
 
-  clearTimeout(toastTimeout);
-  toastTimeout = setTimeout(() => {
+  if (toast._timeout) clearTimeout(toast._timeout);
+
+  toast._timeout = setTimeout(() => {
     toast.classList.remove("is-visible");
     setTimeout(() => toast.remove(), 200);
   }, 3000);
 }
 
-// For console testing
+if (typeof window !== "undefined") {
+  window.showToast = showToast;
+}
+
 window.showToast = showToast;

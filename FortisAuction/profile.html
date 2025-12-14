@@ -1,0 +1,158 @@
+<!-- /FortisAuction/profile.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Mikkel August Andaas" />
+    <meta name="description" content="Your profile on Fortis Auction" />
+    <title>Profile – Fortis Auction</title>
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="/FortisAuction/assets/logos/hammer.png"
+    />
+
+    <link rel="stylesheet" href="/FortisAuction/assets/css/styles.css" />
+    <link rel="stylesheet" href="/FortisAuction/assets/css/profile.css" />
+    <link rel="stylesheet" href="/FortisAuction/assets/css/toast.css" />
+
+    <script
+      type="module"
+      src="/FortisAuction/js/main/profile.js"
+      defer
+    ></script>
+  </head>
+
+  <body>
+    <header id="header"></header>
+
+    <main class="profile-main">
+      <section class="profile-shell">
+        <!-- BANNER -->
+        <div
+          id="profileBanner"
+          class="profile-banner"
+          role="img"
+          aria-label="Profile banner"
+        ></div>
+
+        <!-- PROFILE HEADER -->
+        <div class="profile-header">
+          <div class="profile-avatar">
+            <img
+              id="profileAvatar"
+              src="/FortisAuction/assets/images/avatar-placeholder.png"
+              alt="User avatar"
+            />
+          </div>
+
+          <div class="profile-meta">
+            <div class="profile-title-row">
+              <h1 id="profileName"></h1>
+              <button
+                id="editProfileBtn"
+                class="profile-edit-btn"
+                type="button"
+              >
+                Edit profile
+              </button>
+            </div>
+
+            <p id="profileEmail"></p>
+            <p id="profileBio" class="profile-bio"></p>
+
+            <div class="profile-credits">
+              Credits: <span id="profileCredits"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- FILTERS -->
+        <div class="profile-filters">
+          <button
+            class="profile-filter-btn is-active"
+            data-filter="listings"
+            type="button"
+          >
+            My Listings
+          </button>
+          <button class="profile-filter-btn" data-filter="bids" type="button">
+            My Bids
+          </button>
+          <button class="profile-filter-btn" data-filter="wins" type="button">
+            Wins
+          </button>
+        </div>
+
+        <!-- CONTENT -->
+        <section class="profile-section">
+          <h2 id="profileSectionTitle">My Listings</h2>
+          <div id="profileGrid" class="profile-grid"></div>
+        </section>
+      </section>
+
+      <!-- EDIT MODAL -->
+      <div
+        class="profile-modal-overlay"
+        id="profileModalOverlay"
+        aria-hidden="true"
+      >
+        <div
+          class="profile-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="profileModalTitle"
+        >
+          <button
+            class="profile-modal-close"
+            id="profileModalClose"
+            aria-label="Close"
+          >
+            ×
+          </button>
+
+          <h2 id="profileModalTitle" class="profile-modal-title">
+            Edit profile
+          </h2>
+
+          <form id="profileEditForm" class="profile-edit-form">
+            <div class="profile-edit-field">
+              <label for="bioInput">Bio</label>
+              <textarea
+                id="bioInput"
+                rows="4"
+                placeholder="Write a short bio..."
+              ></textarea>
+            </div>
+
+            <div class="profile-edit-field">
+              <label for="avatarUrlInput">Avatar image URL</label>
+              <input
+                id="avatarUrlInput"
+                type="url"
+                placeholder="https://example.com/avatar.jpg"
+              />
+            </div>
+
+            <div class="profile-edit-field">
+              <label for="bannerUrlInput">Banner image URL</label>
+              <input
+                id="bannerUrlInput"
+                type="url"
+                placeholder="https://example.com/banner.jpg"
+              />
+            </div>
+
+            <button class="profile-save-btn" id="profileSaveBtn" type="submit">
+              Save changes
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer"></footer>
+  </body>
+</html>

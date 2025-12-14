@@ -8,12 +8,22 @@
       name="description"
       content="Browse active listings on Fortis Auction"
     />
-    <link rel="icon" href="/FortisAuction/assets/logos/hammer.png" />
 
-    <link rel="stylesheet" href="./assets/css/styles.css" />
-    <link rel="stylesheet" href="./assets/css/listings.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="/FortisAuction/assets/logos/hammer.png"
+    />
 
-    <script type="module" src="./js/main/listings.js" defer></script>
+    <link rel="stylesheet" href="/FortisAuction/assets/css/styles.css" />
+    <link rel="stylesheet" href="/FortisAuction/assets/css/listings.css" />
+    <link rel="stylesheet" href="/FortisAuction/assets/css/toast.css" />
+
+    <script
+      type="module"
+      src="/FortisAuction/js/main/listings.js"
+      defer
+    ></script>
 
     <title>Fortis Auction – Listings</title>
   </head>
@@ -31,13 +41,15 @@
           <input
             type="text"
             id="searchInput"
+            name="search"
             class="search-input"
-            placeholder="Search Listings"
+            placeholder="Search listings"
           />
 
           <input
             type="text"
             id="tagInput"
+            name="tags"
             class="tag-input"
             placeholder="Filter by tags (comma separated)"
           />
@@ -51,53 +63,6 @@
       </section>
     </main>
 
-    <footer id="footer" class="welcome-footer">
-      <div class="welcome-footer-inner">
-        <p class="welcome-footer-text">
-          Our platform brings together high-quality sellers and motivated
-          buyers, creating a reliable marketplace where great finds move fast.
-        </p>
-
-        <div class="welcome-footer-socials">
-          <span>follow our socials:</span>
-
-          <a href="#" class="social-link" aria-label="Facebook">
-            <img
-              src="/FortisAuction/assets/logos/SVG FACEBOOK.svg"
-              alt="Facebook"
-              class="footer-icon"
-            />
-          </a>
-
-          <a href="#" class="social-link" aria-label="Instagram">
-            <img
-              src="/FortisAuction/assets/logos/SVG INSTAGRAM.svg"
-              alt="Instagram"
-              class="footer-icon"
-            />
-          </a>
-
-          <a href="#" class="social-link" aria-label="Twitter">
-            <img
-              src="/FortisAuction/assets/logos/SVG TWITTER.svg"
-              alt="Twitter"
-              class="footer-icon"
-            />
-          </a>
-
-          <a href="#" class="social-link" aria-label="GitHub">
-            <img
-              src="/FortisAuction/assets/logos/SVG GITHUB.svg"
-              alt="GitHub"
-              class="footer-icon"
-            />
-          </a>
-        </div>
-
-        <p class="welcome-footer-copy">
-          © 2025 AuctionSite. Secure bidding. Transparent listings.
-        </p>
-      </div>
-    </footer>
+    <footer id="footer"></footer>
   </body>
 </html>

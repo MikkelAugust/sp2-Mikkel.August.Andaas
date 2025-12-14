@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="View a public profile on Fortis Auction"
+    />
+    <title>Public Profile – Fortis Auction</title>
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="/FortisAuction/assets/logos/hammer.png"
+    />
+
+    <link rel="stylesheet" href="/FortisAuction/assets/css/styles.css" />
+    <link rel="stylesheet" href="/FortisAuction/assets/css/profile.css" />
+    <link rel="stylesheet" href="/FortisAuction/assets/css/toast.css" />
+
+    <script
+      type="module"
+      src="/FortisAuction/js/main/publicProfile.js"
+      defer
+    ></script>
+  </head>
+
+  <body>
+    <header id="header"></header>
+
+    <main class="profile-main">
+      <section class="profile-shell">
+        <div
+          id="profileBanner"
+          class="profile-banner"
+          aria-label="Profile banner"
+        ></div>
+
+        <div class="profile-header">
+          <div class="profile-avatar">
+            <img id="profileAvatar" alt="User avatar" />
+          </div>
+
+          <div class="profile-meta">
+            <div class="profile-title-row">
+              <h1 id="profileName"></h1>
+
+              <button
+                id="editProfileBtn"
+                class="profile-edit-btn"
+                type="button"
+              >
+                Edit profile
+              </button>
+            </div>
+
+            <p id="profileEmail"></p>
+            <p id="profileBio" class="profile-bio"></p>
+
+            <div class="profile-credits">
+              Credits: <span id="profileCredits"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-filters">
+          <button
+            class="profile-filter-btn is-active"
+            data-filter="listings"
+            type="button"
+          >
+            Listings
+          </button>
+          <button class="profile-filter-btn" data-filter="bids" type="button">
+            Bids
+          </button>
+          <button class="profile-filter-btn" data-filter="wins" type="button">
+            Wins
+          </button>
+        </div>
+
+        <section class="profile-section">
+          <h2 id="profileSectionTitle">Listings</h2>
+          <div id="profileGrid" class="profile-grid"></div>
+        </section>
+      </section>
+    </main>
+
+    <footer id="footer"></footer>
+  </body>
+</html>

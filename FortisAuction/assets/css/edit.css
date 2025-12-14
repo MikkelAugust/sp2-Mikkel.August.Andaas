@@ -1,0 +1,225 @@
+@import url("./variables.css");
+
+.edit-main {
+  flex: 1;
+  background: var(--fa-bg-main);
+  padding: 3.2rem 1.5rem;
+}
+
+.edit-shell {
+  max-width: 760px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.22);
+}
+
+/* HEADER STRIP */
+
+.edit-shell-header {
+  padding: 1.7rem 2rem 1.4rem;
+  background: linear-gradient(
+    135deg,
+    rgba(74, 109, 216, 0.16),
+    rgba(247, 182, 194, 0.22)
+  );
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.edit-shell-header h1 {
+  font-family: var(--fa-font-heading);
+  font-size: 1.65rem;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.45rem;
+  color: var(--fa-text-main);
+}
+
+.edit-shell-header p {
+  margin: 0;
+  max-width: 70ch;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: #444;
+}
+
+/* BODY */
+
+.edit-shell-body {
+  padding: 2rem 2rem 1.2rem;
+}
+
+/* FORM */
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.edit-field label {
+  display: block;
+  margin: 0 0 0.4rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
+  color: #222;
+}
+
+.edit-field input,
+.edit-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  padding: 0.85rem 0.95rem;
+  background: #fff;
+  outline: none;
+  font-family: var(--fa-font-body);
+  font-size: 0.95rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.edit-field textarea {
+  resize: vertical;
+  min-height: 130px;
+  line-height: 1.5;
+}
+
+.edit-field input:focus,
+.edit-field textarea:focus {
+  border-color: #4a6dd8;
+  box-shadow: 0 0 0 3px rgba(74, 109, 216, 0.18);
+}
+
+.edit-field small {
+  display: block;
+  margin: 0.45rem 0 0;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* OPTIONAL IMAGE PREVIEW (if you add markup) */
+
+.edit-preview {
+  border-radius: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: rgba(0, 0, 0, 0.03);
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.edit-preview-label {
+  font-family: var(--fa-font-heading);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  color: #333;
+}
+
+.edit-preview img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 16px;
+  background: #ddd;
+}
+
+/* ACTION BAR */
+
+.edit-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.2rem 2rem 1.6rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), #fff);
+}
+
+.btn-primary,
+.btn-danger {
+  border-radius: 999px;
+  font-family: var(--fa-font-heading);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease,
+    opacity 0.15s ease;
+}
+
+/* SAVE */
+
+.btn-primary {
+  border: none;
+  padding: 0.7rem 1.8rem;
+  font-size: 0.85rem;
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    var(--fa-pill-green-start),
+    var(--fa-pill-green-end)
+  );
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.22);
+}
+
+.btn-primary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* DELETE */
+
+.btn-danger {
+  padding: 0.65rem 1.5rem;
+  font-size: 0.8rem;
+  color: #7b1c1c;
+  border: 1px solid rgba(123, 28, 28, 0.35);
+  background: rgba(123, 28, 28, 0.08);
+}
+
+.btn-danger:hover {
+  background: rgba(123, 28, 28, 0.12);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(123, 28, 28, 0.18);
+}
+
+@media (max-width: 700px) {
+  .edit-main {
+    padding: 2.2rem 1.1rem;
+  }
+
+  .edit-shell-header {
+    padding: 1.4rem 1.3rem 1.2rem;
+  }
+
+  .edit-shell-body {
+    padding: 1.4rem 1.3rem 0.9rem;
+  }
+
+  .edit-actions {
+    position: sticky;
+    bottom: 0;
+    padding: 1rem 1.1rem;
+    flex-direction: column;
+    align-items: stretch;
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  .btn-primary,
+  .btn-danger {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 550px) {
+  .edit-field input,
+  .edit-field textarea {
+    font-size: 16px;
+  }
+}

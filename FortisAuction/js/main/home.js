@@ -1,6 +1,3 @@
-import { loadHeader, activateHeaderEvents } from "../ui/header.js";
+import { boot } from "../ui/boot.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-  loadHeader();
-  activateHeaderEvents();
-});
+boot();

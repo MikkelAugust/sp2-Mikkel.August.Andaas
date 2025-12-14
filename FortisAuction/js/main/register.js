@@ -1,121 +1,160 @@
-import {
-    registerUser,
-    loginUser,
-    createApiKey,
-    getProfile,
-} from "../api/auth.js";
-import { setUser } from "../utils/storage.js";
 import { loadHeader, activateHeaderEvents } from "../ui/header.js";
+import { loadFooter } from "../ui/footer.js";
+import { showToast } from "../ui/toast.js";
+import { setUser } from "../utils/storage.js";
 
+const BASE_URL = "https://v2.api.noroff.dev";
 
 document.addEventListener("DOMContentLoaded", () => {
     loadHeader();
     activateHeaderEvents();
+    loadFooter();
+    wireRegister();
+});
 
-    const form = document.querySelector("#registerForm");
-    if (!form) return; // kjør ikke på andre sider
+function wireRegister() {
+    const form =
+        document.querySelector("#registerForm") ||
+        document.querySelector('form[data-register="form"]') ||
+        document.querySelector("form");
+
+    if (!form || form.dataset.wired === "true") return;
+    form.dataset.wired = "true";
 
     form.addEventListener("submit", handleRegister);
-});
+}
+
+function readField(form, keys = []) {
+    for (const k of keys) {
+        const el =
+            form.querySelector(`#${k}`) ||
+            form.querySelector(`[name="${k}"]`) ||
+            form.querySelector(`[data-field="${k}"]`);
+        if (el?.value != null) return el.value.trim();
+    }
+    return "";
+}
+
+function isValidNoroffEmail(email) {
+    return /^[^\s@]+@stud\.noroff\.no$/i.test(email);
+}
+
+function isValidName(name) {
+    return /^[A-Za-z0-9_]+$/.test(name);
+}
 
 async function handleRegister(e) {
     e.preventDefault();
 
-    const name = document.querySelector("#name")?.value.trim();
-    const email = document.querySelector("#email")?.value.trim();
-    const password = document.querySelector("#password")?.value.trim();
-
-    if (!name || !email || !password) {
-        showToast("Please fill in all fields.", "error");
-        return;
-    }
-
-    if (!email.endsWith("@stud.noroff.no")) {
-        showToast("Email must end with @stud.noroff.no", "error");
-        return;
-    }
+    const form = e.currentTarget;
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if (submitBtn) submitBtn.disabled = true;
 
     try {
-        // 1) REGISTER
-        const reg = await registerUser(name, email, password);
-        console.log("REGISTER:", reg);
+        const name = readField(form, ["name", "username", "registerName"]);
+        const email = readField(form, ["email", "registerEmail"]);
+        const password = readField(form, ["password", "registerPassword"]);
+        const avatarUrl = readField(form, ["avatar", "avatarUrl", "registerAvatarUrl"]);
 
-        if (reg.errors) {
-            showToast(reg.errors[0].message, "error");
-            return;
+        if (!name || !email || !password) {
+            throw new Error("Name, email and password are required.");
         }
 
-        // 2) LOGIN
-        const login = await loginUser(email, password);
-        console.log("LOGIN:", login);
-
-        if (login.errors) {
-            showToast(login.errors[0].message, "error");
-            return;
+        if (!isValidName(name)) {
+            throw new Error("Name can only contain letters, numbers and underscore (_).");
         }
 
-        const { accessToken, name: loginName } = login.data || {};
-        if (!accessToken) {
-            showToast("Login failed after registration (no accessToken).", "error");
-            return;
+        if (!isValidNoroffEmail(email)) {
+            throw new Error("Email must be a valid @stud.noroff.no address.");
         }
 
-        const token = accessToken;
-        const profileName = loginName || name;
-
-        // 3) API KEY
-        const keyRes = await createApiKey(token);
-        console.log("API KEY:", keyRes);
-
-        if (keyRes.errors) {
-            showToast(keyRes.errors[0].message, "error");
-            return;
+        if (password.length < 8) {
+            throw new Error("Password must be at least 8 characters.");
         }
 
-        const apiKey = keyRes.data?.key;
-        if (!apiKey) {
-            showToast("Could not create API key.", "error");
-            return;
-        }
+        /* ================= REGISTER ================= */
 
-        // 4) PROFILE
-        const profile = await getProfile(profileName, token, apiKey);
-        console.log("PROFILE:", profile);
+        const regRes = await fetch(`${BASE_URL}/auth/register`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name,
+                email,
+                password,
+                ...(avatarUrl
+                    ? { avatar: { url: avatarUrl, alt: `${name} avatar` } }
+                    : {}),
+            }),
+        });
 
-        if (profile.errors) {
-            showToast(profile.errors[0].message, "error");
-            return;
-        }
+        const regJson = await regRes.json();
+        if (!regRes.ok) throw new Error(regJson?.errors?.[0]?.message);
 
-        const userData = profile.data;
+        /* ================= LOGIN ================= */
 
-        // 5) 1000 startcredits
-        const credits = 1000;
+        const loginRes = await fetch(`${BASE_URL}/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password }),
+        });
+
+        const loginJson = await loginRes.json();
+        if (!loginRes.ok) throw new Error(loginJson?.errors?.[0]?.message);
+
+        const accessToken = loginJson?.data?.accessToken;
+        const userName = loginJson?.data?.name || name;
+        if (!accessToken) throw new Error("No access token returned.");
+
+        /* ================= API KEY ================= */
+
+        const keyRes = await fetch(`${BASE_URL}/auth/create-api-key`, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name: `FortisAuction-${userName}` }),
+        });
+
+        const keyJson = await keyRes.json();
+        if (!keyRes.ok) throw new Error(keyJson?.errors?.[0]?.message);
+
+        const apiKey = keyJson?.data?.key;
+        if (!apiKey) throw new Error("API key missing.");
+
+        /* ================= PROFILE ================= */
+
+        const profRes = await fetch(`${BASE_URL}/auction/profiles/${userName}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+                "X-Noroff-API-Key": apiKey,
+            },
+        });
+
+        const profJson = await profRes.json();
+        if (!profRes.ok) throw new Error(profJson?.errors?.[0]?.message);
+
+        const profile = profJson.data;
 
         setUser({
-            name: userData.name,
-            email: userData.email,
-            avatar: userData.avatar,
-            credits,
-            token,
+            name: profile.name,
+            email: profile.email,
+            credits: profile.credits ?? 0,
+            avatar: profile.avatar ?? null,
+            banner: profile.banner ?? null,
+            bio: profile.bio ?? "",
+            accessToken,
             apiKey,
         });
 
-        // 6) velkomst til index
-        sessionStorage.setItem(
-            "fa_welcome",
-            JSON.stringify({
-                name: userData.name,
-                isNew: true,
-            })
-        );
-
-        showToast("Account created! Redirecting...", "success");
+        showToast("Account created! Redirecting…", "success");
         setTimeout(() => {
-            window.location.href = "/FortisAuction/index.html";
-        }, 800);
-    } catch (error) {
-        console.error(error);
-        showToast("Something went wrong during registration.", "error");
+            window.location.href = "/FortisAuction/profile.html";
+        }, 700);
+    } catch (err) {
+        console.error(err);
+        showToast(err.message || "Something went wrong.", "error");
+    } finally {
+        if (submitBtn) submitBtn.disabled = false;
     }
 }

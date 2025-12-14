@@ -25,7 +25,7 @@ body {
   font-family: var(--fa-font-body);
 }
 
-/* MAIN WELCOME AREA */
+/* MAIN AREA */
 
 .welcome-main {
   flex: 1;
@@ -68,35 +68,11 @@ body {
   transform: translateY(-2px);
 }
 
-
-/* FOOTER */
-
-.welcome-footer {
-  background-color: var(--fa-footer-bg);
-  color: var(--fa-text-muted);
-  padding: 1.8rem 1rem 1.2rem;
-  font-size: 0.85rem;
+.seller-link {
+  text-decoration: underline;
 }
-
-.welcome-footer-inner {
-  max-width: 700px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.welcome-footer-text {
-  margin-bottom: 1.2rem;
-  line-height: 1.6;
-}
-
-.welcome-footer-socials {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 1rem;
-  padding: 0.4rem 0.8rem;
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 6px;
+.seller-link:hover {
+  opacity: 0.85;
 }
 
 /* SOCIAL ICONS */
@@ -123,7 +99,11 @@ body {
   font-size: 0.78rem;
 }
 
-/* MOBILE */
+.not-found-text {
+  text-align: center;
+  line-height: 1.5;
+  color: #555;
+}
 
 @media (max-width: 600px) {
   .welcome-hero {

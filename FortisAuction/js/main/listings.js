@@ -1,21 +1,19 @@
-// js/main/listings.js
-
 import { loadHeader, activateHeaderEvents } from "../ui/header.js";
 import { getUser } from "../utils/storage.js";
 import { showToast } from "../ui/toast.js";
+import { loadFooter } from "../ui/footer.js";
 
 const API_URL =
   "https://v2.api.noroff.dev/auction/listings?_seller=true&_bids=true&_active=true";
 
 let allListings = [];
-let visibleCount = 4; // 4 listings at a time
+let visibleCount = 20; // 4 columns x 5 rows
 
 document.addEventListener("DOMContentLoaded", () => {
-  // GLOBAL HEADER FOR ALL PAGES
   loadHeader();
   activateHeaderEvents();
+  loadFooter();
 
-  // FEED LOGIC
   initControls();
   loadListings();
 });
@@ -24,7 +22,7 @@ function initControls() {
   const loadMoreBtn = document.querySelector("#loadMoreBtn");
   if (loadMoreBtn) {
     loadMoreBtn.addEventListener("click", () => {
-      visibleCount += 4;
+      visibleCount += 20;
       renderListings();
     });
   }
@@ -32,16 +30,10 @@ function initControls() {
   const searchInput = document.querySelector("#searchInput");
   const tagInput = document.querySelector("#tagInput");
 
-  if (searchInput) {
-    searchInput.addEventListener("input", renderListings);
-  }
-
-  if (tagInput) {
-    tagInput.addEventListener("input", renderListings);
-  }
+  if (searchInput) searchInput.addEventListener("input", renderListings);
+  if (tagInput) tagInput.addEventListener("input", renderListings);
 }
 
-// Fetch all active listings (we paginate in UI, 4 at a time)
 async function loadListings() {
   const grid = document.querySelector("#listingsGrid");
   if (!grid) return;
@@ -65,7 +57,6 @@ async function loadListings() {
       return;
     }
 
-    visibleCount = 4;
     renderListings();
   } catch (error) {
     console.error(error);
@@ -78,7 +69,6 @@ function renderListings() {
   const grid = document.querySelector("#listingsGrid");
   const loadMoreBtn = document.querySelector("#loadMoreBtn");
   const user = getUser();
-
   if (!grid) return;
 
   grid.innerHTML = "";
@@ -88,7 +78,6 @@ function renderListings() {
   const tagValue =
     document.querySelector("#tagInput")?.value.trim().toLowerCase() || "";
 
-  // Filter by search + tag
   let filtered = [...allListings];
 
   if (searchValue) {
@@ -100,13 +89,20 @@ function renderListings() {
   }
 
   if (tagValue) {
-    const tag = tagValue.toLowerCase();
-    filtered = filtered.filter((item) =>
-      (item.tags || []).some((t) => t.toLowerCase().includes(tag))
-    );
+    const tagsWanted = tagValue
+      .split(",")
+      .map((t) => t.trim().toLowerCase())
+      .filter(Boolean);
+
+    if (tagsWanted.length) {
+      filtered = filtered.filter((item) =>
+        tagsWanted.every((wanted) =>
+          (item.tags || []).some((t) => t.toLowerCase().includes(wanted))
+        )
+      );
+    }
   }
 
-  // Slice for "4 at a time"
   const visibleListings = filtered.slice(0, visibleCount);
 
   if (!visibleListings.length) {
@@ -120,13 +116,11 @@ function renderListings() {
     card.className = "listing-card";
 
     const image =
-      item.media?.[0]?.url || "./assets/images/placeholder.jpg";
+      item.media?.[0]?.url || "/FortisAuction/assets/images/placeholder.jpg";
 
     const bids = item.bids || [];
     const bidCount = bids.length;
-    const highestBid = bidCount
-      ? Math.max(...bids.map((b) => b.amount))
-      : 0;
+    const highestBid = bidCount ? Math.max(...bids.map((b) => b.amount)) : 0;
 
     const endsAtText = item.endsAt
       ? new Date(item.endsAt).toLocaleDateString()
@@ -139,6 +133,8 @@ function renderListings() {
         ? item.description.slice(0, 60) + "…"
         : item.description || "";
 
+    const sellerName = item.seller?.name ?? "Unknown";
+
     card.innerHTML = `
       <img src="${image}" alt="${item.title}" class="listing-image" />
 
@@ -150,33 +146,39 @@ function renderListings() {
 
       <div class="listing-info">
         <h2 class="listing-title">${item.title}</h2>
-        <p class="listing-seller">By ${item.seller?.name ?? "Unknown"}</p>
+
+        <p class="listing-seller">
+          By
+          ${item.seller?.name
+        ? `<a class="seller-link" href="/FortisAuction/public-profile.html?name=${encodeURIComponent(
+          sellerName
+        )}">${sellerName}</a>`
+        : `${sellerName}`
+      }
+        </p>
 
         <p class="listing-desc">${description}</p>
         <p class="listing-deadline">Ends: ${endsAtText}</p>
         <p class="listing-bids-amount">Highest bid: ${highestBid} credits</p>
 
-        ${
-          user
-            ? `<a href="./listing.html?id=${item.id}" class="view-btn">View Details</a>`
-            : `<p class="listing-login-hint">
-                 please <a href="./login.html">login</a> or 
-                 <a href="./register.html">register</a> to place bids
+        ${user
+        ? `<a href="/FortisAuction/listing.html?id=${item.id}" class="view-btn">View Details</a>`
+        : `<p class="listing-login-hint">
+                 please <a href="/FortisAuction/login.html">login</a> or
+                 <a href="/FortisAuction/register.html">register</a> to place bids
                </p>`
-        }
+      }
       </div>
     `;
 
     grid.appendChild(card);
   });
 
-  // Show/hide Load More
   if (loadMoreBtn) {
     if (visibleCount >= filtered.length) {
       loadMoreBtn.style.display = "none";
     } else {
       loadMoreBtn.style.display = "block";
-      loadMoreBtn.disabled = false;
       loadMoreBtn.textContent = "Load More ▼";
     }
   }

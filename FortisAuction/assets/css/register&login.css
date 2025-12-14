@@ -1,37 +1,42 @@
-/* AUTH PAGES (Register & Login) */
+@import url("./variables.css");
 
 .auth-main {
   flex: 1;
-  background-color: var(--fa-bg-main);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  background: var(--fa-bg-main);
+  display: grid;
+  place-items: center;
   padding: 3rem 1rem;
 }
 
 .auth-card {
-  background: #ffffff;
-  width: 360px;
-  max-width: 90vw;
-  padding: 3.5rem 3rem;
-  border-radius: 14px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  width: 380px;
+  max-width: 92vw;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 16px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+  padding: 2.6rem 2.3rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1.7rem;
 }
+
+/* TYPOGRAPHY */
 
 .auth-title {
   font-family: var(--fa-font-heading);
   font-size: 2rem;
+  letter-spacing: 0.06em;
   text-align: center;
   color: var(--fa-text-main);
+  margin: 0;
 }
+
+/* FORM */
 
 .auth-form {
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
+  gap: 1.15rem;
 }
 
 .auth-field {
@@ -42,68 +47,103 @@
 
 .auth-field label {
   font-family: var(--fa-font-heading);
-  font-size: 1rem;
-  text-transform: capitalize;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  color: #222;
 }
 
 .auth-field input {
-  padding: 0.7rem 0.9rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  width: 100%;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 12px;
   font-size: 1rem;
   font-family: var(--fa-font-body);
-  transition: border-color 0.25s var(--fa-ease), box-shadow 0.25s var(--fa-ease);
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .auth-field input:focus {
-  border-color: #888;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.15);
-  outline: none;
+  border-color: #4a6dd8;
+  box-shadow: 0 0 0 2px rgba(74, 109, 216, 0.22);
+  background: #ffffff;
 }
 
+/* BUTTONS / LINKS */
+
 .auth-btn {
-  margin-top: 0.5rem;
-  background: var(--fa-text-main);
-  color: #fff;
+  margin-top: 0.25rem;
+  width: 100%;
   padding: 0.9rem 1rem;
   border: none;
   border-radius: 999px;
+  background: #4a6dd8;
+  color: #fff;
   font-family: var(--fa-font-heading);
-  letter-spacing: 0.05em;
-  text-transform: capitalize;
+  font-size: 0.95rem;
+  letter-spacing: 0.06em;
   cursor: pointer;
-  transition: transform 0.25s var(--fa-ease), opacity 0.25s var(--fa-ease);
+  box-shadow: 0 6px 16px rgba(74, 109, 216, 0.45);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease,
+    opacity 0.18s ease;
 }
 
 .auth-btn:hover {
-  transform: translateY(-2px);
-  opacity: 0.9;
+  background: #3d5ac0;
+  transform: translateY(-1px);
+  box-shadow: 0 9px 22px rgba(74, 109, 216, 0.6);
+}
+
+.auth-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .auth-switch {
   text-align: center;
   font-size: 0.95rem;
+  color: #444;
+  margin: 0;
 }
 
 .auth-switch a {
   font-family: var(--fa-font-heading);
+  color: #4a6dd8;
   text-decoration: underline;
-  transition: color 0.25s var(--fa-ease);
+  transition: color 0.18s ease;
 }
 
 .auth-switch a:hover {
-  color: #444;
+  color: #3d5ac0;
 }
 
-/* MOBILE */
-
 @media (max-width: 600px) {
+  .auth-main {
+    padding: 2.2rem 0.9rem;
+  }
+
   .auth-card {
-    width: 300px;
-    padding: 3rem 2rem;
+    width: 100%;
+    padding: 2.1rem 1.4rem;
+    border-radius: 14px;
+    gap: 1.4rem;
   }
 
   .auth-title {
-    font-size: 1.7rem;
+    font-size: 1.65rem;
+  }
+
+  /* prevent iOS zoom */
+  .auth-field input {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .auth-card {
+    padding: 1.8rem 1.1rem;
   }
 }

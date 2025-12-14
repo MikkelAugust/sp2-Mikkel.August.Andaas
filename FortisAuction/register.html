@@ -3,7 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Mikkel August Andaas" />
+    <meta name="description" content="Create a Fortis Auction account" />
+
     <title>Register – Fortis Auction</title>
+
+    <link
+      rel="icon"
+      type="image/png"
+      href="/FortisAuction/assets/logos/hammer.png"
+    />
 
     <link rel="stylesheet" href="/FortisAuction/assets/css/styles.css" />
     <link
@@ -11,6 +20,7 @@
       href="/FortisAuction/assets/css/register&login.css"
     />
     <link rel="stylesheet" href="/FortisAuction/assets/css/toast.css" />
+
     <script
       type="module"
       src="/FortisAuction/js/main/register.js"
@@ -28,17 +38,36 @@
         <form id="registerForm" class="auth-form">
           <div class="auth-field">
             <label for="name">Name</label>
-            <input type="text" id="name" required />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              autocomplete="username"
+            />
           </div>
 
           <div class="auth-field">
             <label for="email">Email (@stud.noroff.no)</label>
-            <input type="email" id="email" required />
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              autocomplete="email"
+            />
           </div>
 
           <div class="auth-field">
             <label for="password">Password</label>
-            <input type="password" id="password" required minlength="8" />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              minlength="8"
+              autocomplete="new-password"
+            />
           </div>
 
           <button type="submit" class="auth-btn">Register</button>

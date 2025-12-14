@@ -3,10 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="author" content="Mikkel August Andaas" />
-    <meta name="description" content="Welcome page for Fortis Auction" />
 
-    <title>Fortis Auction – Welcome</title>
+    <meta name="author" content="Mikkel August Andaas" />
+    <meta
+      name="description"
+      content="The page you are looking for could not be found on Fortis Auction."
+    />
+
+    <title>404 – Page Not Found | Fortis Auction</title>
 
     <link
       rel="icon"
@@ -15,21 +19,23 @@
     />
 
     <link rel="stylesheet" href="/FortisAuction/assets/css/styles.css" />
-    <link rel="stylesheet" href="/FortisAuction/assets/css/toast.css" />
-
-    <script type="module" src="/FortisAuction/js/main/home.js" defer></script>
   </head>
 
   <body>
     <header id="header"></header>
 
-    <main class="welcome-main">
+    <main class="welcome-main" role="main">
       <section class="welcome-hero">
         <div class="welcome-card">
-          <a href="/FortisAuction/login.html" class="welcome-link">Login</a>
-          <a href="/FortisAuction/register.html" class="welcome-link"
-            >Register</a
-          >
+          <h1 class="auth-title">404</h1>
+
+          <p class="not-found-text">
+            The page you’re looking for doesn’t exist or has been moved.
+          </p>
+
+          <a href="/FortisAuction/index.html" class="welcome-link">
+            Back to home
+          </a>
         </div>
       </section>
     </main>

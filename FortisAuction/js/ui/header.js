@@ -2,6 +2,8 @@ import { getUser, clearUser } from "../utils/storage.js";
 
 export function loadHeader() {
   const header = document.querySelector("#header");
+  if (!header) return;
+
   const user = getUser();
 
   const avatarUrl =
@@ -22,17 +24,21 @@ export function loadHeader() {
         </a>
 
         <!-- Right side -->
-        ${
-          user
-            ? `
+        ${user
+      ? `
           <div class="fa-header-right">
-           <div class="green-pill" <span class="fa-credits-pill-desktop">
-              Credits: ${user.credits ?? 0}
-            </span></div>
+            <div class="green-pill">
+              <span class="fa-credits-pill-desktop">
+                Credits: ${user.credits ?? 0}
+              </span>
+            </div>
 
-            <a href="#"
-               class="fa-header-avatar"
-               aria-label="Profile menu">
+            <a
+              href="#"
+              class="fa-header-avatar"
+              role="button"
+              aria-label="Open profile menu"
+            >
               <img
                 src="${avatarUrl}"
                 alt="${user.name || "User"} avatar"
@@ -40,21 +46,20 @@ export function loadHeader() {
             </a>
           </div>
         `
-            : `
+      : `
           <div class="fa-header-right">
             <a href="/FortisAuction/login.html" class="fa-header-link">Login</a>
             <a href="/FortisAuction/register.html" class="fa-header-link">Register</a>
           </div>
         `
-        }
+    }
       </div>
     </div>
 
-    ${
-      user
-        ? `
+    ${user
+      ? `
       <!-- Overlay menu -->
-      <div class="fa-menu-overlay" id="faMobileMenu">
+      <div class="fa-menu-overlay" id="faMobileMenu" aria-hidden="true">
         <div class="fa-menu-inner">
           <button class="fa-menu-close" aria-label="Close menu">×</button>
 
@@ -85,42 +90,48 @@ export function loadHeader() {
         </div>
       </div>
     `
-        : ""
+      : ""
     }
   `;
 }
 
 export function activateHeaderEvents() {
-  const menuToggle = document.querySelector(".fa-menu-toggle");
   const menuOverlay = document.querySelector("#faMobileMenu");
   const closeBtn = menuOverlay?.querySelector(".fa-menu-close");
   const profileBtn = menuOverlay?.querySelector('[data-menu="profile"]');
   const logoutBtn = menuOverlay?.querySelector('[data-menu="logout"]');
   const avatarBtn = document.querySelector(".fa-header-avatar");
 
-  // Open overlay from avatar
   if (avatarBtn && menuOverlay) {
-    avatarBtn.addEventListener("click", (event) => {
-      event.preventDefault();
+    const openMenu = (e) => {
+      e.preventDefault();
       menuOverlay.classList.add("is-open");
+      menuOverlay.setAttribute("aria-hidden", "false");
+    };
+
+    avatarBtn.addEventListener("click", openMenu);
+
+    avatarBtn.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openMenu(e);
+      }
     });
   }
 
-  // Close overlay
   if (closeBtn && menuOverlay) {
     closeBtn.addEventListener("click", () => {
       menuOverlay.classList.remove("is-open");
+      menuOverlay.setAttribute("aria-hidden", "true");
     });
   }
 
-  // Go to profile from overlay
   if (profileBtn) {
     profileBtn.addEventListener("click", () => {
       window.location.href = "/FortisAuction/profile.html";
     });
   }
 
-  // Logout from overlay
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
       clearUser();
