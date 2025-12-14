@@ -135,7 +135,7 @@ export function activateHeaderEvents() {
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
       clearUser();
-      window.location.href = "/FortisAuction/welcome.html";
+      window.location.href = "/index.html";
     });
   }
 }
